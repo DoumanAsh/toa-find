@@ -3,13 +3,13 @@ name = "toa-find"
 version = "0.1.0"
 authors = ["Douman <douman@gmx.se>"]
 categories = ["command-line-utilities"]
-description = "GNU find replacement"
+description = "Kawaii GNU find replacement"
 
 homepage = "https://github.com/DoumanAsh/toa-find"
 repository = "https://github.com/DoumanAsh/toa-find"
 
 readme = "README.md"
-keywords = ["ping"]
+keywords = ["find"]
 license = "MIT"
 
 [dependencies]
