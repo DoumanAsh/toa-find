@@ -13,8 +13,8 @@ keywords = ["find"]
 license = "MIT"
 
 [dependencies]
-regex = "*"
-walkdir = "*"
+regex = "^0.2"
+walkdir = "^1"
 
 [profile.release]
 lto = true
