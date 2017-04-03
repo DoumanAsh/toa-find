@@ -32,9 +32,6 @@ before_deploy:
   - cd staging
   - 7z a ../%PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%-%TARGET%.zip *.exe
   - appveyor PushArtifact ../%PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%-%TARGET%.zip
-  - cd debug/
-  - 7z a ../../%PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%-%TARGET%-debug.zip *.exe
-  - appveyor PushArtifact ../../%PROJECT_NAME%-%APPVEYOR_REPO_TAG_NAME%-%TARGET%-debug.zip
 
 deploy:
   description: 'Windows release'
