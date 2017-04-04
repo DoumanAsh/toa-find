@@ -135,6 +135,10 @@ impl Parser {
                 }
             }
             else {
+                if pattern.is_some() {
+                    return Err(ParseError("Cannot use more than one pattern for now. Gomen, onii-chan :(".to_string()));
+                }
+
                 pattern = match regex::Regex::new(arg) {
                     Ok(regex) => Some(regex),
                     Err(error) => return Err(ParseError(format!("Couldn't compile pattern. {}", error)))
@@ -232,6 +236,14 @@ mod tests {
         assert!(result.flags.file);
         assert!(!result.flags.dir);
         assert_eq!(result.pattern.as_str(), ".*");
+    }
+
+    #[test]
+    fn args_w_few_patterns() {
+        let args = ["-f", ".*", "test.*"];
+        let result = Parser::from_args(&args);
+
+        assert!(result.is_err());
     }
 
     #[test]
