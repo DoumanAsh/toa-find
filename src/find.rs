@@ -110,8 +110,8 @@ mod tests {
     }
 
     #[test]
-    fn find_test_binary() {
-        let args = cli::Parser::from_args(["toa_find-[0-9a-zA-Z]", "-f"].iter());
+    fn find_test_file_w_file() {
+        let args = cli::Parser::from_args([".gitignore", "-f"].iter());
         assert!(args.is_ok());
         let args = args.unwrap().unwrap();
 
@@ -120,8 +120,8 @@ mod tests {
     }
 
     #[test]
-    fn find_test_binary_dir() {
-        let args = cli::Parser::from_args(["toa_find-[0-9a-zA-Z]", "-d"].iter());
+    fn find_test_file_w_dir() {
+        let args = cli::Parser::from_args([".gitignore", "-d"].iter());
         assert!(args.is_ok());
         let args = args.unwrap().unwrap();
 
