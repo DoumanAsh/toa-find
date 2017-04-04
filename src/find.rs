@@ -10,7 +10,7 @@ fn filter_error(value: walkdir::Result<walkdir::DirEntry>) -> Option<walkdir::Di
     match value {
         Ok(entry) => Some(entry),
         Err(error) => {
-            println!("ERROR: {}", error);
+            error_println!("ERROR: {}", error);
             None
         }
     }
@@ -51,7 +51,7 @@ impl Find {
             let path = path::Path::new(&path);
 
             if !path.exists() {
-                println!("toa: {} cannot access", path.display());
+                error_println!("toa: {} cannot access", path.display());
                 continue;
             }
 

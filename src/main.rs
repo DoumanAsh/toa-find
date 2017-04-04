@@ -8,6 +8,9 @@ use std::error;
 use std::fmt;
 use std::process::exit;
 
+#[macro_use]
+mod utils;
+
 mod cli;
 mod find;
 
@@ -30,7 +33,7 @@ fn main() {
     let code: i32 = match run() {
         Ok(res) => res,
         Err(error) => {
-            println!("{}", error);
+            error_println!("{}", error);
             1
         }
     };
