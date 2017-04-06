@@ -19,6 +19,7 @@ Options:
   -s, --sym          - Follow symbolic links. By default they are not followed.
       --minhop <num> - Minimum number of hops before starting to look.
       --hop <num>    - Specifies depth of recursion.
+  -q, --quiet        - Print only results. Errors are ignored.
 
 By default every type of file system entry is printed.
 Below flags can be used to disable defaults and print only particular types of entries.
@@ -69,7 +70,9 @@ pub struct Flags {
     ///Flag whether to print executables or not.
     pub file: bool,
     ///Flag whether to follow symbolic links.
-    pub sym: bool
+    pub sym: bool,
+    ///Flag whether to ignore errrors or not.
+    pub quiet: bool
 }
 
 pub struct Options {
@@ -114,6 +117,7 @@ impl Parser {
                     "d" | "-dir" => flags.dir = true,
                     "f" | "-file" => flags.file = true,
                     "s" | "-sym" => flags.sym = true,
+                    "q" | "-quiet" => flags.quiet = true,
                     "-minhop" => {
                         match parse_next_int(args.next().as_ref().map(|val| val.as_ref()), arg) {
                             Ok(num) => options.hop.0 = num,

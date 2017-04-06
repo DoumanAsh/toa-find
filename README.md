@@ -23,6 +23,7 @@ Options:
   -s, --sym          - Follow symbolic links. By default they are not followed.
       --minhop <num> - Minimum number of hops before starting to look.
       --hop <num>    - Specifies depth of recursion.
+  -q, --quiet        - Print only results. Errors are ignored.
 
 By default every type of file system entry is printed.
 Below flags can be used to disable defaults and print only particular types of entries.

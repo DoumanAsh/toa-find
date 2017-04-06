@@ -4,18 +4,6 @@ use ::path;
 
 use ::cli;
 
-#[inline]
-///Filters errors out and prints them
-fn filter_error(value: walkdir::Result<walkdir::DirEntry>) -> Option<walkdir::DirEntry> {
-    match value {
-        Ok(entry) => Some(entry),
-        Err(error) => {
-            error_println!("ERROR: {}", error);
-            None
-        }
-    }
-}
-
 ///Find App runner
 pub struct Find {
     args: cli::Parser
@@ -43,6 +31,20 @@ impl Find {
         self.args.pattern.is_match(name)
     }
 
+    #[inline]
+    ///Filters errors out and prints them, if needed.
+    fn filter_error(&self, value: walkdir::Result<walkdir::DirEntry>) -> Option<walkdir::DirEntry> {
+        match value {
+            Ok(entry) => Some(entry),
+            Err(error) => {
+                if !self.args.flags.quiet {
+                    error_println!("ERROR: {}", error);
+                }
+                None
+            }
+        }
+    }
+
     pub fn run(&self) -> i32 {
         let mut result = 1;
         let paths = self.args.paths.iter();
@@ -51,7 +53,9 @@ impl Find {
             let path = path::Path::new(&path);
 
             if !path.exists() {
-                error_println!("toa: {} cannot access", path.display());
+                if !self.args.flags.quiet {
+                    error_println!("toa: {} cannot access", path.display());
+                }
                 continue;
             }
 
@@ -59,7 +63,7 @@ impl Find {
                                             .max_depth(self.args.opts.hop.1)
                                             .follow_links(self.args.flags.sym)
                                             .into_iter()
-                                            .filter_map(filter_error)
+                                            .filter_map(|elem| self.filter_error(elem))
                                             .filter(|elem| self.filter_type(elem))
                                             .filter(|elem| self.filter_name(elem));
             for entry in walker {
